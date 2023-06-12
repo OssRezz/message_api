@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -48,6 +49,17 @@ class AuthController extends Controller
             "message" => 'Login exitoso.',
             'token' => $token,
             "usuario" => $user
+        ]);
+    }
+
+    public function logout()
+    {
+        Auth::user()->tokens->each(function ($token, $key) {
+            $token->delete();
+        });
+        return response()->json([
+            "status" => 200,
+            "message" => 'Logout exitoso.',
         ]);
     }
 }
