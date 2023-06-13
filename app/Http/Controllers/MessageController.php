@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateMessageRequest;
+use App\Http\Requests\UpdateMessageRequest;
 use App\Models\History;
 use App\Models\Message;
 use Illuminate\Http\Request;
@@ -89,9 +90,14 @@ class MessageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateMessageRequest $request, Message $message)
     {
-        //
+        $message->update($request->all());
+        return response()->json([
+            'status' => 200,
+            'message' => "The message has been updated.",
+            'data' => []
+        ]);
     }
 
     /**
@@ -113,5 +119,10 @@ class MessageController extends Controller
             'status' => 200,
             'message' => "Message delete",
         ]);
+    }
+
+    public function SendMessage(Message $message)
+    {
+        
     }
 }

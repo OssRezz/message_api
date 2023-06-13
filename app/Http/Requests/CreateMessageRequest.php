@@ -26,7 +26,7 @@ class CreateMessageRequest extends FormRequest
         return [
             'message' => ['required', 'string'],
             'type' => ['required', 'string'],
-            'number' => ['string', 'sometimes', 'nullable'],
+            'number' => ['numeric', 'sometimes', 'nullable'],
         ];
     }
 
